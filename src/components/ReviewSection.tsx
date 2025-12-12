@@ -79,14 +79,16 @@ export function ReviewSection({ appId, appName }: ReviewSectionProps) {
                             whileHover={interactive ? { scale: 1.3 } : {}}
                             whileTap={interactive ? { scale: 0.9 } : {}}
                             onClick={() => interactive && onSelect?.(star)}
-                            className={`${interactive ? 'cursor-pointer' : 'cursor-default'} ${interactive ? 'p-1 rounded-lg hover:bg-yellow-500/20' : ''
+                            className={`${interactive ? 'cursor-pointer' : 'cursor-default'} ${interactive ? 'p-1 rounded-lg hover:bg-blue-500/20' : ''
                                 }`}
                             disabled={!interactive}
                         >
                             <Star
                                 className={`${interactive ? 'w-8 h-8' : 'w-5 h-5'} ${star <= rating
-                                    ? 'fill-yellow-400 text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.5)]'
-                                    : 'fill-transparent text-gray-600 hover:text-yellow-300'
+                                    ? interactive
+                                        ? 'fill-blue-400 text-blue-400 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]'
+                                        : 'fill-yellow-400 text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.5)]'
+                                    : interactive ? 'fill-transparent text-gray-600 hover:text-blue-300' : 'fill-transparent text-gray-600'
                                     } transition-all duration-200`}
                             />
                         </motion.button>
@@ -94,7 +96,7 @@ export function ReviewSection({ appId, appName }: ReviewSectionProps) {
                 </div>
                 {interactive && (
                     <div className="flex items-center gap-2">
-                        <span className="text-yellow-400 font-medium text-lg">{rating}/5</span>
+                        <span className="text-blue-400 font-medium text-lg">{rating}/5</span>
                         <span className="text-gray-400">- {ratingLabels[rating]}</span>
                     </div>
                 )}

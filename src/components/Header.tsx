@@ -1,5 +1,6 @@
-import { Instagram, MessageCircle } from 'lucide-react';
+import { Instagram, MessageCircle, Sun, Moon } from 'lucide-react';
 import { motion } from 'motion/react';
+import { useTheme } from '../context/ThemeContext';
 
 // Discord icon component (Lucide doesn't have Discord)
 function DiscordIcon({ className }: { className?: string }) {
@@ -11,6 +12,8 @@ function DiscordIcon({ className }: { className?: string }) {
 }
 
 export function Header() {
+  const { theme, toggleTheme } = useTheme();
+
   return (
     <motion.header
       initial={{ y: -100, opacity: 0 }}
@@ -42,6 +45,21 @@ export function Header() {
 
         {/* Right Side Navigation */}
         <div className="flex items-center space-x-2 sm:space-x-4">
+          {/* Theme Toggle */}
+          <motion.button
+            onClick={toggleTheme}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className="w-10 h-10 rounded-lg backdrop-blur-xl bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center transition-all duration-300"
+            title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            {theme === 'dark' ? (
+              <Sun className="w-5 h-5 text-yellow-400" />
+            ) : (
+              <Moon className="w-5 h-5 text-blue-400" />
+            )}
+          </motion.button>
+
           {/* Discord */}
           <motion.a
             href="https://discord.com/users/1023371340432031844"

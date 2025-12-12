@@ -7,6 +7,7 @@ import { AdminPanel } from './components/AdminPanel';
 import { BlogSection } from './components/BlogSection';
 import { NewsletterSection } from './components/NewsletterSection';
 import { Footer } from './components/Footer';
+import { useTheme } from './context/ThemeContext';
 
 export interface AppData {
   id: string;
@@ -71,6 +72,7 @@ const apps: AppData[] = [
 export default function App() {
   const [selectedApp, setSelectedApp] = useState<AppData | null>(null);
   const [showAdmin, setShowAdmin] = useState(false);
+  const { theme } = useTheme();
 
   // Secret key combination to show admin panel (Ctrl + Shift + A)
   useState(() => {
@@ -84,9 +86,12 @@ export default function App() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0a0a0f] via-[#12121a] to-[#1a1a2e] text-white overflow-x-hidden">
+    <div className={`min-h-screen overflow-x-hidden transition-colors duration-300 ${theme === 'dark'
+        ? 'bg-gradient-to-br from-[#0a0a0f] via-[#12121a] to-[#1a1a2e] text-white'
+        : 'bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 text-gray-900'
+      }`}>
       {/* Animated background pattern */}
-      <div className="fixed inset-0 opacity-20 pointer-events-none">
+      <div className={`fixed inset-0 pointer-events-none ${theme === 'dark' ? 'opacity-20' : 'opacity-10'}`}>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_50%)]"></div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(147,51,234,0.15),transparent_50%)]"></div>
       </div>
