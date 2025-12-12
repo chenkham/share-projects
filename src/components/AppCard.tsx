@@ -58,12 +58,12 @@ export function AppCard({ app, onClick, delay }: AppCardProps) {
       {/* Content */}
       <div className="relative z-10">
         {/* Stats Badges */}
-        <div className="absolute top-0 right-0 flex gap-2">
+        <div className="absolute -top-2 -right-2 sm:top-0 sm:right-0 flex gap-1 sm:gap-2">
           {downloadCount !== null && downloadCount > 0 && (
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="flex items-center gap-1 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-300 text-sm"
+              className="flex items-center gap-1 px-2 py-0.5 sm:px-3 sm:py-1 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-300 text-xs sm:text-sm"
             >
               <Download className="w-3 h-3" />
               <span>{formatCount(downloadCount)}</span>
@@ -73,7 +73,7 @@ export function AppCard({ app, onClick, delay }: AppCardProps) {
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="flex items-center gap-1 px-3 py-1 rounded-full bg-yellow-500/20 border border-yellow-500/30 text-yellow-300 text-sm"
+              className="flex items-center gap-1 px-2 py-0.5 sm:px-3 sm:py-1 rounded-full bg-yellow-500/20 border border-yellow-500/30 text-yellow-300 text-xs sm:text-sm"
             >
               <Star className="w-3 h-3 fill-yellow-400" />
               <span>{averageRating.toFixed(1)}</span>
