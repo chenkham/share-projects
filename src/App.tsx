@@ -62,7 +62,7 @@ const apps: AppData[] = [
       'Better performance on older devices'
     ],
     gradient: 'from-cyan-500 via-blue-500 to-purple-500',
-    downloadUrl: 'https://github.com/chenkham/Echofy-android-download/releases/download/Echofy/app-universal-release.apk',
+    downloadUrl: 'https://github.com/chenkham/Echofy-android/releases/download/Echofy/app-universal-release.apk',
     isOpenSource: true,
     githubUrl: 'https://github.com/Chenkham/Echofy'
   }
