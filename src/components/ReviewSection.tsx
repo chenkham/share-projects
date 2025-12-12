@@ -22,6 +22,7 @@ export function ReviewSection({ appId, appName }: ReviewSectionProps) {
         comment: ''
     });
     const [submitSuccess, setSubmitSuccess] = useState(false);
+    const [showAllReviews, setShowAllReviews] = useState(false);
 
     useEffect(() => {
         loadReviews();
@@ -84,8 +85,8 @@ export function ReviewSection({ appId, appName }: ReviewSectionProps) {
                         >
                             <Star
                                 className={`${interactive ? 'w-8 h-8' : 'w-5 h-5'} ${star <= rating
-                                        ? 'fill-yellow-400 text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.5)]'
-                                        : 'fill-transparent text-gray-600 hover:text-yellow-300'
+                                    ? 'fill-yellow-400 text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.5)]'
+                                    : 'fill-transparent text-gray-600 hover:text-yellow-300'
                                     } transition-all duration-200`}
                             />
                         </motion.button>
@@ -210,29 +211,41 @@ export function ReviewSection({ appId, appName }: ReviewSectionProps) {
                         <p className="text-gray-400">No reviews yet. Be the first to review!</p>
                     </div>
                 ) : (
-                    reviews.map((review) => (
-                        <motion.div
-                            key={review.$id}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-5 hover:bg-white/10 transition-all duration-300"
-                        >
-                            <div className="flex items-start justify-between mb-3">
-                                <div>
-                                    <h4 className="font-medium text-white">{review.userName}</h4>
-                                    <p className="text-gray-500 text-sm">
-                                        {new Date(review.createdAt).toLocaleDateString('en-US', {
-                                            year: 'numeric',
-                                            month: 'short',
-                                            day: 'numeric'
-                                        })}
-                                    </p>
+                    <>
+                        {(showAllReviews ? reviews : reviews.slice(0, 2)).map((review) => (
+                            <motion.div
+                                key={review.$id}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-5 hover:bg-white/10 transition-all duration-300"
+                            >
+                                <div className="flex items-start justify-between mb-3">
+                                    <div>
+                                        <h4 className="font-medium text-white">{review.userName}</h4>
+                                        <p className="text-gray-500 text-sm">
+                                            {new Date(review.createdAt).toLocaleDateString('en-US', {
+                                                year: 'numeric',
+                                                month: 'short',
+                                                day: 'numeric'
+                                            })}
+                                        </p>
+                                    </div>
+                                    {renderStars(review.rating)}
                                 </div>
-                                {renderStars(review.rating)}
-                            </div>
-                            <p className="text-gray-300">{review.comment}</p>
-                        </motion.div>
-                    ))
+                                <p className="text-gray-300">{review.comment}</p>
+                            </motion.div>
+                        ))}
+                        {reviews.length > 2 && (
+                            <motion.button
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                onClick={() => setShowAllReviews(!showAllReviews)}
+                                className="w-full py-3 rounded-xl backdrop-blur-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300 text-gray-300 hover:text-white"
+                            >
+                                {showAllReviews ? `Show less` : `Show all ${reviews.length} reviews`}
+                            </motion.button>
+                        )}
+                    </>
                 )}
             </div>
         </div>
