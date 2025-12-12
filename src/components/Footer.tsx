@@ -37,16 +37,6 @@ export function Footer() {
                   Projects
                 </a>
               </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
-                  Privacy Policy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
-                  Terms of Service
-                </a>
-              </li>
             </ul>
           </div>
 

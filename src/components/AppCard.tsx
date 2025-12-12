@@ -57,35 +57,11 @@ export function AppCard({ app, onClick, delay }: AppCardProps) {
 
       {/* Content */}
       <div className="relative z-10">
-        {/* Stats Badges */}
-        <div className="absolute -top-2 -right-2 sm:top-0 sm:right-0 flex gap-1 sm:gap-2">
-          {downloadCount !== null && downloadCount > 0 && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="flex items-center gap-1 px-2 py-0.5 sm:px-3 sm:py-1 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-300 text-xs sm:text-sm"
-            >
-              <Download className="w-3 h-3" />
-              <span>{formatCount(downloadCount)}</span>
-            </motion.div>
-          )}
-          {averageRating !== null && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="flex items-center gap-1 px-2 py-0.5 sm:px-3 sm:py-1 rounded-full bg-yellow-500/20 border border-yellow-500/30 text-yellow-300 text-xs sm:text-sm"
-            >
-              <Star className="w-3 h-3 fill-yellow-400" />
-              <span>{averageRating.toFixed(1)}</span>
-            </motion.div>
-          )}
-        </div>
-
         {/* App Icon */}
         <motion.div
           whileHover={{ rotate: 360 }}
           transition={{ duration: 0.6 }}
-          className="w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mb-6 shadow-lg shadow-purple-500/50 overflow-hidden"
+          className="w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mb-4 shadow-lg shadow-purple-500/50 overflow-hidden"
         >
           {app.icon.startsWith('/') ? (
             <img src={app.icon} alt={app.name} className="w-full h-full object-cover" />
@@ -93,6 +69,30 @@ export function AppCard({ app, onClick, delay }: AppCardProps) {
             <span className="text-4xl">{app.icon}</span>
           )}
         </motion.div>
+
+        {/* Stats Badges - Below Logo */}
+        <div className="flex gap-2 mb-4">
+          {downloadCount !== null && downloadCount > 0 && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-300 text-sm font-medium"
+            >
+              <Download className="w-4 h-4" />
+              <span>{formatCount(downloadCount)}</span>
+            </motion.div>
+          )}
+          {averageRating !== null && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-yellow-500/20 border border-yellow-500/30 text-yellow-300 text-sm font-medium"
+            >
+              <Star className="w-4 h-4 fill-yellow-400" />
+              <span>{averageRating.toFixed(1)}</span>
+            </motion.div>
+          )}
+        </div>
 
         {/* App Info */}
         <h3 className="text-2xl sm:text-3xl mb-3">

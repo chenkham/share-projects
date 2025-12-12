@@ -90,7 +90,7 @@ export function AppDetailModal({ app, onClose }: AppDetailModalProps) {
                   {/* Header Section */}
                   <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-8">
                     <div className="flex items-center space-x-4">
-                      <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg shadow-purple-500/50 overflow-hidden">
+                      <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg shadow-purple-500/50 overflow-hidden flex-shrink-0">
                         {app.icon.startsWith('/') ? (
                           <img src={app.icon} alt={app.name} className="w-full h-full object-cover" />
                         ) : (
@@ -125,6 +125,11 @@ export function AppDetailModal({ app, onClose }: AppDetailModalProps) {
                       <Download className="w-5 h-5" />
                       <span className="text-lg">Download APK</span>
                     </motion.button>
+                  </div>
+
+                  {/* Reviews Section - Prominently placed */}
+                  <div className="mb-10">
+                    <ReviewSection appId={app.id} appName={app.name} />
                   </div>
 
                   {/* Screenshot Carousel */}
@@ -172,11 +177,6 @@ export function AppDetailModal({ app, onClose }: AppDetailModalProps) {
                         ))}
                       </ul>
                     </div>
-                  </div>
-
-                  {/* Reviews Section */}
-                  <div className="mb-10">
-                    <ReviewSection appId={app.id} appName={app.name} />
                   </div>
                 </>
               )}
