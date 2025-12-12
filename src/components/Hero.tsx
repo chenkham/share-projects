@@ -1,7 +1,10 @@
 import { motion } from 'motion/react';
 import { ParticleBackground } from './ParticleBackground';
+import { useTheme } from '../context/ThemeContext';
 
 export function Hero() {
+  const { theme } = useTheme();
+
   return (
     <section className="relative min-h-[70vh] flex items-center justify-center px-4 sm:px-6 lg:px-12 py-20 overflow-hidden">
       {/* Particle Background */}
@@ -15,7 +18,7 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <motion.h1
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-6 leading-tight"
+            className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-6 leading-tight ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -29,7 +32,7 @@ export function Hero() {
           </motion.h1>
 
           <motion.p
-            className="text-lg sm:text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-10"
+            className={`text-lg sm:text-xl md:text-2xl max-w-3xl mx-auto mb-10 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}

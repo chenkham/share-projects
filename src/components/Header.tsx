@@ -19,9 +19,12 @@ export function Header() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="sticky top-0 z-50 px-4 sm:px-6 lg:px-12 py-4 backdrop-blur-xl bg-white/5 border-b border-white/10"
+      className={`sticky top-0 z-50 px-4 sm:px-6 lg:px-12 py-4 backdrop-blur-xl border-b ${theme === 'dark'
+          ? 'bg-white/5 border-white/10'
+          : 'bg-white/80 border-gray-200'
+        }`}
       style={{
-        boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)'
+        boxShadow: theme === 'dark' ? '0 8px 32px 0 rgba(31, 38, 135, 0.37)' : '0 4px 16px 0 rgba(0, 0, 0, 0.1)'
       }}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">

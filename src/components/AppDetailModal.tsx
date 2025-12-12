@@ -7,6 +7,7 @@ import { FeatureList } from './FeatureList';
 import { TechSpecs } from './TechSpecs';
 import { DownloadForm } from './DownloadForm';
 import { ReviewSection } from './ReviewSection';
+import { useTheme } from '../context/ThemeContext';
 
 interface AppDetailModalProps {
   app: AppData;
@@ -24,6 +25,7 @@ const screenshotUrls: Record<string, string[]> = {
 
 export function AppDetailModal({ app, onClose }: AppDetailModalProps) {
   const [showDownloadForm, setShowDownloadForm] = useState(false);
+  const { theme } = useTheme();
 
   // Prevent body scroll when modal is open
   useEffect(() => {
@@ -51,7 +53,7 @@ export function AppDetailModal({ app, onClose }: AppDetailModalProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="absolute inset-0 bg-black/80 backdrop-blur-md"
+          className={`absolute inset-0 backdrop-blur-md ${theme === 'dark' ? 'bg-black/80' : 'bg-black/50'}`}
           onClick={onClose}
         />
 
@@ -61,14 +63,20 @@ export function AppDetailModal({ app, onClose }: AppDetailModalProps) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 20 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className="relative w-full h-full md:h-[90vh] md:max-w-6xl mx-4 bg-gradient-to-br from-[#0a0a0f] via-[#12121a] to-[#1a1a2e] rounded-none md:rounded-3xl overflow-hidden shadow-2xl border border-white/10"
+          className={`relative w-full h-full md:h-[90vh] md:max-w-6xl mx-4 rounded-none md:rounded-3xl overflow-hidden shadow-2xl border ${theme === 'dark'
+              ? 'bg-gradient-to-br from-[#0a0a0f] via-[#12121a] to-[#1a1a2e] border-white/10 text-white'
+              : 'bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 border-gray-300 text-gray-900'
+            }`}
         >
           {/* Close Button */}
           <motion.button
             whileHover={{ scale: 1.1, rotate: 90 }}
             whileTap={{ scale: 0.9 }}
             onClick={onClose}
-            className="absolute top-4 right-4 z-50 w-10 h-10 rounded-full backdrop-blur-xl bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center transition-all duration-300"
+            className={`absolute top-4 right-4 z-50 w-10 h-10 rounded-full backdrop-blur-xl border flex items-center justify-center transition-all duration-300 ${theme === 'dark'
+                ? 'bg-white/10 hover:bg-white/20 border-white/20'
+                : 'bg-gray-200 hover:bg-gray-300 border-gray-400'
+              }`}
           >
             <X className="w-5 h-5" />
           </motion.button>

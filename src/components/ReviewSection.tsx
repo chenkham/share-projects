@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Star, Send, Loader2 } from 'lucide-react';
 import { createReview, getReviews, type Review } from '../lib/appwrite';
 import { useEffect } from 'react';
+import { useTheme } from '../context/ThemeContext';
 
 interface ReviewSectionProps {
     appId: string;
@@ -23,6 +24,7 @@ export function ReviewSection({ appId, appName }: ReviewSectionProps) {
     });
     const [submitSuccess, setSubmitSuccess] = useState(false);
     const [showAllReviews, setShowAllReviews] = useState(false);
+    const { theme } = useTheme();
 
     useEffect(() => {
         loadReviews();
@@ -134,7 +136,7 @@ export function ReviewSection({ appId, appName }: ReviewSectionProps) {
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
-                    className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-6"
+                    className={`backdrop-blur-xl border rounded-xl p-6 ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-white border-gray-300'}`}
                 >
                     {submitSuccess ? (
                         <div className="text-center py-4">
@@ -149,29 +151,29 @@ export function ReviewSection({ appId, appName }: ReviewSectionProps) {
                     ) : (
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div>
-                                <label className="block text-sm text-gray-300 mb-2">Your Name</label>
+                                <label className={`block text-sm mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Your Name</label>
                                 <input
                                     type="text"
                                     required
                                     value={formData.userName}
                                     onChange={(e) => setFormData({ ...formData, userName: e.target.value })}
-                                    className="w-full px-4 py-3 rounded-lg backdrop-blur-xl bg-white/5 border border-white/10 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all duration-300"
+                                    className={`w-full px-4 py-3 rounded-lg backdrop-blur-xl border focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all duration-300 ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white placeholder-gray-400' : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'}`}
                                     placeholder="Enter your name"
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-sm text-gray-300 mb-2">Rating</label>
+                                <label className={`block text-sm mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Rating</label>
                                 {renderStars(formData.rating, true, (r) => setFormData({ ...formData, rating: r }))}
                             </div>
 
                             <div>
-                                <label className="block text-sm text-gray-300 mb-2">Your Review</label>
+                                <label className={`block text-sm mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>Your Review</label>
                                 <textarea
                                     required
                                     value={formData.comment}
                                     onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
-                                    className="w-full px-4 py-3 rounded-lg backdrop-blur-xl bg-white/5 border border-white/10 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all duration-300 min-h-[100px] resize-none"
+                                    className={`w-full px-4 py-3 rounded-lg backdrop-blur-xl border focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all duration-300 min-h-[100px] resize-none ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white placeholder-gray-400' : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'}`}
                                     placeholder="Share your experience with this app..."
                                 />
                             </div>
@@ -181,7 +183,7 @@ export function ReviewSection({ appId, appName }: ReviewSectionProps) {
                                 disabled={isSubmitting}
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
-                                className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 disabled:opacity-50"
+                                className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 disabled:opacity-50 text-white"
                             >
                                 {isSubmitting ? (
                                     <>
@@ -205,12 +207,12 @@ export function ReviewSection({ appId, appName }: ReviewSectionProps) {
                 {isLoading ? (
                     <div className="text-center py-8">
                         <Loader2 className="w-8 h-8 animate-spin mx-auto text-purple-500" />
-                        <p className="text-gray-400 mt-2">Loading reviews...</p>
+                        <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>Loading reviews...</p>
                     </div>
                 ) : reviews.length === 0 ? (
-                    <div className="text-center py-8 backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl">
-                        <Star className="w-12 h-12 mx-auto text-gray-600 mb-2" />
-                        <p className="text-gray-400">No reviews yet. Be the first to review!</p>
+                    <div className={`text-center py-8 backdrop-blur-xl border rounded-xl ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-white border-gray-300'}`}>
+                        <Star className={`w-12 h-12 mx-auto mb-2 ${theme === 'dark' ? 'text-gray-600' : 'text-gray-400'}`} />
+                        <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>No reviews yet. Be the first to review!</p>
                     </div>
                 ) : (
                     <>
@@ -219,12 +221,12 @@ export function ReviewSection({ appId, appName }: ReviewSectionProps) {
                                 key={review.$id}
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-5 hover:bg-white/10 transition-all duration-300"
+                                className={`backdrop-blur-xl border rounded-xl p-5 transition-all duration-300 ${theme === 'dark' ? 'bg-white/5 border-white/10 hover:bg-white/10' : 'bg-white border-gray-300 hover:bg-gray-50'}`}
                             >
                                 <div className="flex items-start justify-between mb-3">
                                     <div>
-                                        <h4 className="font-medium text-white">{review.userName}</h4>
-                                        <p className="text-gray-500 text-sm">
+                                        <h4 className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>{review.userName}</h4>
+                                        <p className={`text-sm ${theme === 'dark' ? 'text-gray-500' : 'text-gray-500'}`}>
                                             {new Date(review.createdAt).toLocaleDateString('en-US', {
                                                 year: 'numeric',
                                                 month: 'short',
@@ -234,7 +236,7 @@ export function ReviewSection({ appId, appName }: ReviewSectionProps) {
                                     </div>
                                     {renderStars(review.rating)}
                                 </div>
-                                <p className="text-gray-300">{review.comment}</p>
+                                <p className={theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}>{review.comment}</p>
                             </motion.div>
                         ))}
                         {reviews.length > 2 && (
@@ -242,7 +244,7 @@ export function ReviewSection({ appId, appName }: ReviewSectionProps) {
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
                                 onClick={() => setShowAllReviews(!showAllReviews)}
-                                className="w-full py-3 rounded-xl backdrop-blur-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-purple-500/50 transition-all duration-300 text-gray-300 hover:text-white"
+                                className={`w-full py-3 rounded-xl backdrop-blur-xl border hover:border-purple-500/50 transition-all duration-300 ${theme === 'dark' ? 'bg-white/5 border-white/10 hover:bg-white/10 text-gray-300 hover:text-white' : 'bg-gray-100 border-gray-300 hover:bg-gray-200 text-gray-700 hover:text-gray-900'}`}
                             >
                                 {showAllReviews ? `Show less` : `Show all ${reviews.length} reviews`}
                             </motion.button>
