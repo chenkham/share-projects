@@ -33,13 +33,39 @@ const databases = new Databases(client);
 // ============================================
 export interface DownloadRecord {
   $id?: string;
-  name: string;
-  email: string;
-  location: string;
+  name?: string;
+  email?: string;
+  location?: string;
   appId: string;
   appName: string;
+  source?: string;
   userAgent?: string;
   createdAt: string;
+}
+
+// Simple download increment without personal data
+export async function incrementDownloadCount(
+  appId: string,
+  appName: string,
+  source: string
+): Promise<void> {
+  try {
+    await databases.createDocument(
+      DATABASE_ID,
+      COLLECTIONS.DOWNLOADS,
+      ID.unique(),
+      {
+        appId,
+        appName,
+        source,
+        userAgent: navigator.userAgent,
+        createdAt: new Date().toISOString(),
+      }
+    );
+  } catch (error) {
+    console.error('Failed to increment download count:', error);
+    // Don't throw - we don't want to block the download if tracking fails
+  }
 }
 
 export async function createDownload(data: Omit<DownloadRecord, '$id' | 'createdAt'>): Promise<DownloadRecord> {
@@ -138,12 +164,12 @@ export async function getReviews(appId: string, limit = 20): Promise<{ documents
         Query.limit(limit),
       ]
     );
-    
+
     const reviews = response.documents as unknown as Review[];
-    const average = reviews.length > 0 
-      ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length 
+    const average = reviews.length > 0
+      ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
       : 0;
-    
+
     return {
       documents: reviews,
       total: response.total,
@@ -173,11 +199,11 @@ export async function addSubscriber(email: string): Promise<{ success: boolean; 
       COLLECTIONS.SUBSCRIBERS,
       [Query.equal('email', email)]
     );
-    
+
     if (existing.total > 0) {
       return { success: false, message: 'Email already subscribed!' };
     }
-    
+
     await databases.createDocument(
       DATABASE_ID,
       COLLECTIONS.SUBSCRIBERS,
@@ -188,7 +214,7 @@ export async function addSubscriber(email: string): Promise<{ success: boolean; 
         isActive: true,
       }
     );
-    
+
     return { success: true, message: 'Successfully subscribed!' };
   } catch (error) {
     console.error('Failed to add subscriber:', error);
@@ -231,7 +257,7 @@ export async function getAnalyticsSummary(): Promise<{
       databases.listDocuments(DATABASE_ID, COLLECTIONS.SUBSCRIBERS, [Query.limit(1)]),
       databases.listDocuments(DATABASE_ID, COLLECTIONS.REVIEWS, [Query.limit(1)]),
     ]);
-    
+
     return {
       totalDownloads: downloads.total,
       totalSubscribers: subscribers.total,

@@ -64,8 +64,8 @@ export function AppDetailModal({ app, onClose }: AppDetailModalProps) {
           exit={{ opacity: 0, scale: 0.9, y: 20 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
           className={`relative w-full h-full md:h-[90vh] md:max-w-6xl mx-4 rounded-none md:rounded-3xl overflow-hidden shadow-2xl border ${theme === 'dark'
-              ? 'bg-gradient-to-br from-[#0a0a0f] via-[#12121a] to-[#1a1a2e] border-white/10 text-white'
-              : 'bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 border-gray-300 text-gray-900'
+            ? 'bg-gradient-to-br from-[#0a0a0f] via-[#12121a] to-[#1a1a2e] border-white/10 text-white'
+            : 'bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 border-gray-300 text-gray-900'
             }`}
         >
           {/* Close Button */}
@@ -74,8 +74,8 @@ export function AppDetailModal({ app, onClose }: AppDetailModalProps) {
             whileTap={{ scale: 0.9 }}
             onClick={onClose}
             className={`absolute top-4 right-4 z-50 w-10 h-10 rounded-full backdrop-blur-xl border flex items-center justify-center transition-all duration-300 ${theme === 'dark'
-                ? 'bg-white/10 hover:bg-white/20 border-white/20'
-                : 'bg-gray-200 hover:bg-gray-300 border-gray-400'
+              ? 'bg-white/10 hover:bg-white/20 border-white/20'
+              : 'bg-gray-200 hover:bg-gray-300 border-gray-400'
               }`}
           >
             <X className="w-5 h-5" />
@@ -85,11 +85,11 @@ export function AppDetailModal({ app, onClose }: AppDetailModalProps) {
           <div className="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-purple-500/50 scrollbar-track-transparent">
             <div className="p-6 md:p-10">
               {showDownloadForm ? (
-                <div className="max-w-md mx-auto">
+                <div className="max-w-xl mx-auto">
                   <DownloadForm
                     appId={app.id}
                     appName={app.name}
-                    downloadUrl={app.downloadUrl}
+                    downloadSources={app.downloadSources}
                     onClose={() => setShowDownloadForm(false)}
                   />
                 </div>
