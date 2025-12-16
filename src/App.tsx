@@ -87,7 +87,7 @@ const apps: AppData[] = [
       {
         name: 'Google Drive',
         version: '2.2.0',
-        url: 'https://drive.google.com/file/d/1_eSFCtCN6L3ZnelCWKJuIwuS0BP58OPl/view?usp=drivesdk',
+        url: 'https://drive.google.com/file/d/10STHx4qu0xl3RMg6z8ayILLjwZIG-9P1/view?usp=drivesdk',
         provider: 'drive',
         fileSize: '15 MB'
       },
